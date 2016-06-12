@@ -2,15 +2,15 @@ package onelogin
 
 // The main OneLogin structure.
 type OneLogin struct {
-    // A hard coded base URL if you want to for some reason override the
-    // defaults specified by shards
-    CustomURL   string
+    // Allow custom base URL to override the generated URL
+	CustomURL string
 
-    // OneLogin service shard (eu, us, etc)
-    Shard         string
-    Token         *OneLogin_Token
+	// OneLogin service shard (eu, us, etc)
+	Shard string
 
-    OauthToken    string
+	// Token struct for managing the OAuth token
+	Token *OneLogin_Token
+
     SubDomain     string
     Client_id     string
     Client_secret string
