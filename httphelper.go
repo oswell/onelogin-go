@@ -110,3 +110,11 @@ func (h *HttpClient) CreateUrl(requrl string, parameters map[string]string)(stri
     logger.Debugf("Url: [%s]", baseUrl.String())
     return baseUrl.String()
 }
+
+/** Compile headers for the API call **/
+func Headers(authorization string)(map[string]string) {
+    return map[string]string{
+        "Authorization": authorization,
+        "Content-Type" : "application/json",
+    }
+}
