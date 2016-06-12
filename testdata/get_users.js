@@ -1,0 +1,81 @@
+{
+   "status":{
+      "error":false,
+      "code":200,
+      "type":"success",
+      "message":"Success"
+   },
+   "pagination":{
+      "before_cursor":null,
+      "after_cursor":"xxxxb3VudF9pZDo6Oi0tIyNpZDo6OjY3NzI0NzQ",
+      "previous_link":null,
+      "next_link":"https://api.us.onelogin.com/api/1/users?after_cursor=xxxxb3VudF9pZDo6Oi0tIyNpZDo6OjY3NzI0NzQ"
+   },
+   "data":[
+      {
+         "activated_at":"2009-05-05T00:00:00.000Z",
+         "created_at":"2009-05-05T03:18:08.338Z",
+         "email":"hazel.zhang@onelogin.com",
+         "username":"hzhang",
+         "firstname":"Hazel",
+         "group_id":123456,
+         "id":1,
+         "invalid_login_attempts":0,
+         "invitation_sent_at":"2011-09-20T16:14:48.344Z",
+         "last_login":"2009-12-08T23:02:36.786Z",
+         "lastname":"Zhang",
+         "locked_until":null,
+         "notes":null,
+         "openid_name":"hazel.zhang",
+         "locale_code":null,
+         "password_changed_at":"2013-12-02T00:00:00.000Z",
+         "phone":"",
+         "status":1,
+         "updated_at":"2015-08-21T23:12:08.495Z",
+         "distinguished_name":null,
+         "external_id":null,
+         "directory_id":null,
+         "member_of":null,
+         "samaccountname":null,
+         "userprincipalname":null,
+         "manager_ad_id":null,
+         "role_id": [
+           77777,
+           111111
+         ],
+         "custom_attributes": {
+           "alias": "Haz",
+           "branch": "Southwest Center"
+         }
+      },
+      {
+         "activated_at":"2011-07-26T19:50:47.242Z",
+         "created_at":"2009-08-05T20:59:20.190Z",
+         "email":"amaya@onelogin.com",
+         "username":"",
+         "firstname":"Amaya",
+         "group_id":123456,
+         "id":2,
+         "invalid_login_attempts":0,
+         "invitation_sent_at":"2011-08-10T14:22:16.466Z",
+         "last_login":"2015-10-08T02:59:33.732Z",
+         "lastname":"Gomez",
+         "locked_until":null,
+         "notes":null,
+         "openid_name":"amaya.gomez",
+         "locale_code":null,
+         "password_changed_at":"2015-09-09T16:11:09.542Z",
+         "phone":"650-555-1212",
+         "status":1,
+         "updated_at":"2015-10-08T02:59:33.982Z",
+         "distinguished_name":null,
+         "external_id":null,
+         "directory_id":null,
+         "member_of":null,
+         "samaccountname":"amaya.gomez",
+         "userprincipalname":null,
+         "manager_ad_id":null,
+         "role_id": null
+      }
+   ]
+}
