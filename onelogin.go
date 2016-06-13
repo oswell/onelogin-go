@@ -4,7 +4,18 @@ import (
     "fmt"
     "errors"
     "strconv"
+    "github.com/op/go-logging"
 )
+
+func New(shard string, client_id string, client_secret string, subdomain string, loglevel logging.Level)(*OneLogin) {
+    ol := OneLogin{Shard:shard, Client_id: client_id, Client_secret:client_secret, SubDomain: subdomain}
+    ol.SetLogLevel(loglevel)
+    return &ol
+}
+
+func (o *OneLogin) SetLogLevel(loglevel logging.Level) {
+    SetLogLevel(loglevel)
+}
 
 // GetUrl creates a URL given the URI and any given args.
 // Returns a URL
