@@ -5,16 +5,25 @@ import (
     "github.com/op/go-logging"
 )
 
+const LoggerModule = "onelogin"
+
 // Logger
-var logger = logging.MustGetLogger("onelogin")
+var logger = logging.MustGetLogger(LoggerModule)
 
 func init() {
-    StderrFormatter("")
+    SetLogLevel(logging.WARNING)
+}
+
+func SetLogLevel(level logging.Level) {
+    logging.SetFormatter(LogFormat())
+    backend := logging.AddModuleLevel(StderrBackend(""))
+    backend.SetLevel(level, "")
+    logger.SetBackend(backend)
 }
 
 func LogFormat()(logging.Formatter) {
     return logging.MustStringFormatter(
-        `%{shortfile} %{shortfunc} ▶ %{level:.8s} %{message}`,
+        `%{level:.8s} %{shortfile} %{shortfunc} ▶  %{message}`,
     )
 }
 
