@@ -64,14 +64,18 @@ func (h *HttpClient) Go(method string, body io.Reader, respObj interface{}) ([]b
     defer resp.Body.Close()
 
     response, err := ioutil.ReadAll(resp.Body) ; if err != nil {
+        logger.Errorf("An error occurred while reading in the HTTP response body, %v", err)
         return nil, err
     }
 
     if respObj != nil {
         err = json.Unmarshal([]byte(response), &respObj) ; if err != nil {
+            logger.Errorf("An error occurred unpacking the HTTP response body, %v", err)
             return nil, ErrorOcurred(err)
         }
     }
+
+    logger.Debugf("Successfully called %s.", h.Url)
 
     // body is now the response body, hopefully JSON.
     return response, nil
@@ -107,7 +111,6 @@ func (h *HttpClient) CreateUrl(requrl string, parameters map[string]string)(stri
         params.Add(k, v)
     }
     baseUrl.RawQuery = params.Encode()
-    logger.Debugf("Url: [%s]", baseUrl.String())
     return baseUrl.String()
 }
 

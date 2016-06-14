@@ -52,6 +52,7 @@ func (o *OneLogin) Get_Token()(*OneLogin_Token, error) {
         }
     }
 
+    logger.Debugf("Token: %s", o.Token)
     return o.Token, nil
 }
 
