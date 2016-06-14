@@ -41,12 +41,13 @@ func (o *OneLogin) Get_Users(filter map[string]string) (*[]OneLoginUser, error) 
     }
 
     url := o.GetUrl(USER_GET_USERS)
-    headers := Headers(fmt.Sprintf("bearer:%s", oauth_token))
+    headers := Headers(fmt.Sprintf("bearer:%s", oauth_token.Access_token))
 
     get_user_response := GetUserResponse{}
 
     client := HttpClient{Url: url, Headers: headers, Params: filter}
     _, err = client.Request("GET", nil, &get_user_response) ; if err != nil {
+        logger.Errorf("An error occurred, %v", err)
         return nil, ErrorOcurred(err)
     }
 
@@ -62,7 +63,7 @@ func (o *OneLogin) Get_AppsForUser(userId int) ([]OneLoginApp, error) {
     }
 
     url := o.GetUrl(USER_GET_APPS, strconv.Itoa(userId))
-    headers := Headers(fmt.Sprintf("bearer:%s", oauth_token))
+    headers := Headers(fmt.Sprintf("bearer:%s", oauth_token.Access_token))
 
     params := map[string]string{}
     get_apps_for_user_response := GetUserAppsResponse{}
@@ -84,7 +85,7 @@ func (o *OneLogin) Get_RolesForUser(userId int) ([]int, error) {
     }
 
     url := o.GetUrl(USER_GET_USER_ROLES, strconv.Itoa(userId))
-    headers := Headers(fmt.Sprintf("bearer:%s", oauth_token))
+    headers := Headers(fmt.Sprintf("bearer:%s", oauth_token.Access_token))
 
     params := map[string]string{}
     get_roles_for_user_response := GetUserRolesResponse{}
@@ -107,7 +108,7 @@ func (o *OneLogin) Get_UsersWithRole(role string)([]OneLoginUser, error) {
     }
 
     url := o.GetUrl(USER_GET_USERS)
-    headers := Headers(fmt.Sprintf("bearer:%s", oauth_token))
+    headers := Headers(fmt.Sprintf("bearer:%s", oauth_token.Access_token))
 
     params := map[string]string{}
 
@@ -143,7 +144,7 @@ func (o *OneLogin) Set_CustomAttribute(userid int, attributeName string, attribu
     }
 
     url := o.GetUrl(USERS_SET_ATTRIBUTE, strconv.Itoa(userid))
-    headers := Headers(fmt.Sprintf("bearer:%s", oauth_token))
+    headers := Headers(fmt.Sprintf("bearer:%s", oauth_token.Access_token))
     client := HttpClient{Url: url, Headers: headers}
 
     attributes := SetCustomAttributeRequest{Custom_Attributes: map[string]string{ attributeName: attributeValue }}

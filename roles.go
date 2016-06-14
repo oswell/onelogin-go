@@ -21,7 +21,7 @@ func (o *OneLogin) Get_Roles(name string)([]OneLoginRole, error) {
 
     url := o.GetUrl(ROLE_GET_ROLES)
 
-    headers := Headers(fmt.Sprintf("bearer:%s", oauth_token))
+    headers := Headers(fmt.Sprintf("bearer:%s", oauth_token.Access_token))
     params := map[string]string{}
 
     if name != "" {
