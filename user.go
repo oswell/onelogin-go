@@ -34,6 +34,9 @@ const (
 // filter can also include sort, fields, and limit.  See OneLogin documentation
 // for more details (https://developers.onelogin.com/api-docs/1/users/get-users)
 //
+// OneLogin's API only returns at most 50 objects per call.  Until we enable paging
+// on this end, we are going to page through and fetch all user objects.
+//
 // Returns a slice of OneLoginUser objects and an error if any error occurred.
 func (o *OneLogin) Get_Users(filter map[string]string) (*[]OneLoginUser, error) {
     oauth_token, err := o.Get_Token(); if err != nil {
@@ -51,7 +54,27 @@ func (o *OneLogin) Get_Users(filter map[string]string) (*[]OneLoginUser, error) 
         return nil, ErrorOcurred(err)
     }
 
-    return &get_user_response.Data, nil
+    user_data := make([]OneLoginUser, 0)
+    user_data = append(user_data, get_user_response.Data...)
+
+    fmt.Printf(":: %s", get_user_response.Pagination)
+
+    after_cursor := ""
+    for get_user_response.Pagination.After_cursor != after_cursor {
+        after_cursor = get_user_response.Pagination.After_cursor
+
+        filter["after_cursor"] = after_cursor
+        client := HttpClient{Url: url, Headers: headers, Params: filter}
+
+        get_user_response := GetUserResponse{}
+        _, err = client.Request("GET", nil, &get_user_response) ; if err != nil {
+            logger.Errorf("An error occurred, %v", err)
+            return nil, ErrorOcurred(err)
+        }
+        user_data = append(user_data, get_user_response.Data...)
+    }
+
+    return &user_data, nil
 }
 
 // Get_AppsForUser returns all apps that a user has assigned.

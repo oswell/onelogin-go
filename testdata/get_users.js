@@ -7,9 +7,9 @@
    },
    "pagination":{
       "before_cursor":null,
-      "after_cursor":"xxxxb3VudF9pZDo6Oi0tIyNpZDo6OjY3NzI0NzQ",
+      "after_cursor":null,
       "previous_link":null,
-      "next_link":"https://api.us.onelogin.com/api/1/users?after_cursor=xxxxb3VudF9pZDo6Oi0tIyNpZDo6OjY3NzI0NzQ"
+      "next_link":null
    },
    "data":[
       {

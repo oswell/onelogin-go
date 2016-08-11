@@ -75,7 +75,7 @@ func (h *HttpClient) Go(method string, body io.Reader, respObj interface{}) ([]b
         }
     }
 
-    logger.Debugf("Successfully called %s.", h.Url)
+    logger.Debugf("Successfully called %s {%v}.", h.Url, h.Params)
 
     // body is now the response body, hopefully JSON.
     return response, nil
