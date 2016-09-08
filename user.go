@@ -57,13 +57,12 @@ func (o *OneLogin) Get_Users(filter map[string]string) (*[]OneLoginUser, error) 
     user_data := make([]OneLoginUser, 0)
     user_data = append(user_data, get_user_response.Data...)
 
-    fmt.Printf(":: %s", get_user_response.Pagination)
+    logger.Infof("Pagination link: %s", get_user_response.Pagination.After_cursor)
 
-    after_cursor := ""
-    for get_user_response.Pagination.After_cursor != after_cursor {
-        after_cursor = get_user_response.Pagination.After_cursor
+    next_cursor := get_user_response.Pagination.After_cursor
+    for next_cursor != "" {
 
-        filter["after_cursor"] = after_cursor
+        filter["after_cursor"] = next_cursor
         client := HttpClient{Url: url, Headers: headers, Params: filter}
 
         get_user_response := GetUserResponse{}
@@ -71,6 +70,9 @@ func (o *OneLogin) Get_Users(filter map[string]string) (*[]OneLoginUser, error) 
             logger.Errorf("An error occurred, %v", err)
             return nil, ErrorOcurred(err)
         }
+        next_cursor = get_user_response.Pagination.After_cursor
+
+        logger.Infof("Pagination link: %s", next_cursor)
         user_data = append(user_data, get_user_response.Data...)
     }
 
